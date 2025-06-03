@@ -4,10 +4,7 @@ import io.github.joaosopran.demo.model.Cliente;
 import io.github.joaosopran.demo.repository.ClienteRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/clientes")
@@ -19,7 +16,7 @@ public class ClienteController {
         this.repository = repository;
     }
 
-    @GetMapping
+    @PostMapping
     public ResponseEntity<?> criarCliente(@RequestBody @Valid Cliente cliente) {
         if (repository.existsByCpf(cliente.getCpf())) {
             return ResponseEntity
@@ -30,6 +27,33 @@ public class ClienteController {
         return ResponseEntity.ok(salvo);
     }
 
+    @GetMapping
+    public ResponseEntity<?> listarClientes() {
+        return ResponseEntity.ok(repository.findAll());
+    }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizarCliente(@PathVariable Long id, @RequestBody @Valid Cliente clienteAtualizado) {
+        if (!repository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        Cliente cliente = repository.findById(id).orElseThrow();
 
+        cliente.setNome(clienteAtualizado.getNome());
+        cliente.setCpf(clienteAtualizado.getCpf());
+        cliente.setCep(clienteAtualizado.getCep());
+
+        Cliente salvo = repository.save(cliente);
+        return ResponseEntity.ok(salvo);
+
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletarCliente(@PathVariable Long id) {
+        if (!repository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        repository.deleteById(id);
+        return ResponseEntity.ok("Cliente deletado com sucesso.");
+    }
 }
