@@ -39,11 +39,11 @@ Este repositório contém um projeto de exemplo de um **CRUD básico** desenvolv
 http://localhost:8080/h2-console
 (JDBC URL: jdbc:h2:mem:testdb, usuário: sa, senha: admin "conforme configurado no application.properties")
 
-📌 Observações
+## 📌 Observações
 As respostas dos endpoints são tratadas com a classe ResponseEntity no ClienteController, garantindo controle mais preciso sobre o status HTTP retornado.
 
 O banco H2 é volátil e reinicia a cada execução da aplicação, ideal para testes locais.
 
-🔗 Testando os Endpoints com Postman
+## 🔗 Testando os Endpoints com Postman
 Recomenda-se utilizar o Postman para enviar requisições HTTP e testar a API.
 
