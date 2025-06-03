@@ -44,4 +44,6 @@ As respostas dos endpoints são tratadas com a classe ResponseEntity no ClienteC
 
 O banco H2 é volátil e reinicia a cada execução da aplicação, ideal para testes locais.
 
+🔗 Testando os Endpoints com Postman
+Recomenda-se utilizar o Postman para enviar requisições HTTP e testar a API.
 
